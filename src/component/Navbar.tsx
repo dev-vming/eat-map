@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <>
       <div className="navbar">
-        <div className="navbar__logo">eat-map</div>
+        <Link href="/" className="navbar__logo">eat-map</Link>
         <div className="navbar__list">
           <Link href="/stores" className="navbar__list--item">
             맛집 목록
