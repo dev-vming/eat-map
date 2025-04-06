@@ -1,5 +1,6 @@
 /*global kakao*/
 import Script from "next/script";
+import * as stores from "@/data/store_data.json";
 
 declare global {
   interface Window {
@@ -7,15 +8,30 @@ declare global {
   }
 }
 
+const DEFAULT_LAT = 37.496486063;
+const DEFAULT_LNG = 127.028361548;
+
 export default function Map() {
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
         level: 3,
       };
-      new window.kakao.maps.Map(mapContainer, mapOption);
+      const map = new window.kakao.maps.Map(mapContainer, mapOption);
+
+      stores?.["DATA"]?.map((store) => {
+        const markerPosition = new window.kakao.maps.LatLng(
+          store?.y_dnts,
+          store?.x_cnts,
+        );
+        const marker = new window.kakao.maps.Marker({
+          position: markerPosition,
+        });
+
+        marker.setMap(map);
+      });
     });
   };
   return (
