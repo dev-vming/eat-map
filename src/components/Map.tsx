@@ -13,6 +13,7 @@ const DEFAULT_LNG = 127.028361548;
 
 export default function Map() {
   const loadKakaoMap = () => {
+    // 카카오 맵 불러오기, 초기 좌표 설정
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
@@ -22,14 +23,32 @@ export default function Map() {
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
       stores?.["DATA"]?.map((store) => {
+        // store data 좌표 값으로 마커 좌표 설정
         const markerPosition = new window.kakao.maps.LatLng(
           store?.y_dnts,
-          store?.x_cnts,
+          store?.x_cnts
         );
+
+        // store 업태 명 별 마커 이미지 설정
+        const imageSrc = store?.bizcnd_code_nm
+            ? `/images/markers/${store?.bizcnd_code_nm}.png`
+            : "images/markers/default.png",
+          imageSize = new window.kakao.maps.Size(40, 40),
+          imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+
+        const markerImage = new window.kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imageOption
+        );
+
+        // 마커 생성
         const marker = new window.kakao.maps.Marker({
           position: markerPosition,
+          image: markerImage,
         });
 
+        // 지도 위에 마커 표시
         marker.setMap(map);
       });
     });
