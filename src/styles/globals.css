@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .navbar {
   @apply flex justify-between items-center fixed w-full h-[52px] top-0 shadow-sm bg-white;
@@ -9,19 +11,19 @@
 }
 
 .navbar__list {
-  @apply py-0 px-[18px] flex gap-3 items-center;
+  @apply flex gap-3 items-center px-[18px] py-0;
+}
+
+.navbar__button {
+  @apply hidden cursor-pointer;
 }
 
 .navbar__list--item {
   @apply cursor-pointer;
 }
 
-.navbar__list--item :hover {
+.navbar__list--item:hover {
   @apply text-gray-600;
-}
-
-.navbar__button {
-  @apply hidden cursor-pointer;
 }
 
 .layout {
@@ -29,20 +31,16 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .navbar--mobile {
+    @apply fixed w-full text-white h-screen top-[52px] bg-blue-800 ;
+  }
+
   .navbar__list {
     @apply hidden;
   }
 
   .navbar__button {
-    @apply block py-0 px-[18px];
-  }
-
-  .navbar--mobile {
-    @apply fixed w-full text-white h-screen top-[52px] bg-blue-800;
-  }
-
-  .navbar__list--mobile {
-    @apply flex flex-col gap-4 py-6 px-[18px];
+    @apply block px-[18px] py-0;
   }
 
   .navbar__list--item--mobile {
@@ -52,4 +50,12 @@
   .navbar__list--item--mobile:hover {
     @apply text-gray-600;
   }
+
+  .navbar__list--mobile {
+    @apply flex flex-col gap-4 px-[18px] py-6;
+  }
+}
+
+.infowindow {
+  @apply bg-blue-900 text-white block text-sm text-center h-6 rounded-sm px-2 leading-6;
 }
