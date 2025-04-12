@@ -1,13 +1,17 @@
-import { StoreType } from "@/interface";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface MakersProps {
   map: any;
   storeDatas: any[];
+  setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
-export default function Markers({ map, storeDatas }: MakersProps) {
-  const loadKakaoMarkers = () => {
+export default function Markers({
+  map,
+  storeDatas,
+  setCurrentStore,
+}: MakersProps) {
+  const loadKakaoMarkers = useCallback(() => {
     if (map) {
       storeDatas?.map((store) => {
         // store data 좌표 값으로 마커 좌표 설정
@@ -57,13 +61,18 @@ export default function Markers({ map, storeDatas }: MakersProps) {
         window.kakao.maps.event.addListener(marker, "mouseout", () => {
           customOverlay.setMap(null);
         });
+
+        // 선택한 가게 저장
+        window.kakao.maps.event.addListener(marker, "click", () => {
+          setCurrentStore(store);
+        });
       });
     }
-  };
+  }, [map, setCurrentStore, storeDatas]);
 
   useEffect(() => {
     loadKakaoMarkers();
-  }, [map]);
+  }, [map, loadKakaoMarkers]);
 
   return <></>;
 }
