@@ -2,18 +2,18 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface MakersProps {
   map: any;
-  storeDatas: any[];
+  stores: any[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
 export default function Markers({
   map,
-  storeDatas,
+  stores,
   setCurrentStore,
 }: MakersProps) {
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
-      storeDatas?.map((store) => {
+      stores?.map((store) => {
         // store data 좌표 값으로 마커 좌표 설정
         const markerPosition = new window.kakao.maps.LatLng(
           store?.y_dnts,
@@ -68,7 +68,7 @@ export default function Markers({
         });
       });
     }
-  }, [map, setCurrentStore, storeDatas]);
+  }, [map, setCurrentStore, stores]);
 
   useEffect(() => {
     loadKakaoMarkers();
