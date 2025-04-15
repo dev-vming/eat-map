@@ -1,7 +1,6 @@
 import Map from "@/components/Map";
 import Markers from "@/components/Markers";
 import StoreBox from "@/components/StoreBox";
-import * as stores from "@/data/store_data.json";
 import { StoreType } from "@/interface";
 import { useState } from "react";
 import axios from "axios";
