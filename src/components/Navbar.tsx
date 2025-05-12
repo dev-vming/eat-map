@@ -2,13 +2,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { BiMenu } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data, status } = useSession();
   return (
     <>
       <div className="navbar">
-        <Link href="/" className="navbar__logo">eat-map</Link>
+        <Link href="/" className="navbar__logo">
+          eat-map
+        </Link>
         <div className="navbar__list">
           <Link href="/stores" className="navbar__list--item">
             맛집 목록
@@ -19,9 +23,15 @@ export default function Navbar() {
           <Link href="/users/likes" className="navbar__list--item">
             찜한 맛집
           </Link>
-          <Link href="/api/auth/signin" className="navbar__list--item">
-            로그인
-          </Link>
+          {status === "authenticated" ? (
+            <button type="button" onClick={()=>signOut()}>
+              로그아웃
+            </button>
+          ) : (
+            <Link href="/api/auth/signin" className="navbar__list--item">
+              로그인
+            </Link>
+          )}
         </div>
         {/* mobile button */}
         <div
@@ -45,7 +55,10 @@ export default function Navbar() {
             <Link href="/users/likes" className="navbar__list--item--mobile">
               찜한 맛집
             </Link>
-            <Link href="/api/auth/signin" className="navbar__list--item--mobile">
+            <Link
+              href="/api/auth/signin"
+              className="navbar__list--item--mobile"
+            >
               로그인
             </Link>
           </div>
