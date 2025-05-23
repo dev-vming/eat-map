@@ -1,6 +1,6 @@
 # Eat-Map
 
-Next.js와 Supabase를 활용하여 서울시 인증 맛집 지도를 제작하였습니다. <br/>
+Next.js와 Supabase를 활용하여 서울시 인증 식당 지도를 제작하였습니다. <br/>
 현재 kakao map API를 활용한 메인페이지, 맛집 목록 페이지를 개발 완료하였습니다.
 
 ## 🌟 주요 기능
