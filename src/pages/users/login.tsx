@@ -35,7 +35,7 @@ export default function LoginPage() {
         <div className="flex flex-col gap-3">
           <button
             type="button"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google", {callbackUrl: '/'})}
             className="flex gap-4 text-white bg-[#4285F3] hover:bg-[#4285F3]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
             <AiOutlineGoogle className="w-6 h-6" />
@@ -43,7 +43,7 @@ export default function LoginPage() {
           </button>
           <button
             type="button"
-            onClick={() => signIn("naver")}
+            onClick={() => signIn("naver", {callbackUrl: '/'})}
             className="flex gap-6 text-white bg-[#2db400] hover:bg-[#2db400]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
             <SiNaver className="w-4 h-4" />
@@ -51,7 +51,7 @@ export default function LoginPage() {
           </button>
           <button
             type="button"
-            // onClick={() => signIn("kakao")}
+            onClick={() => signIn("kakao", {callbackUrl: '/'})}
             className="flex gap-5 text-black bg-[#fef01b] hover:bg-[#fef01b]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
             <RiKakaoTalkFill className="w-6 h-6" />
