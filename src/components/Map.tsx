@@ -10,19 +10,24 @@ declare global {
 
 interface MapProps{
   setMap: Dispatch<SetStateAction<any>>;
+  lat?: string | null;
+  lng?: string | null;
+  zoom?: number;
 }
 
 const DEFAULT_LAT = 37.496486063;
 const DEFAULT_LNG = 127.028361548;
 
-export default function Map({setMap}:MapProps) {
+const DEFAULT_ZOOM = 3;
+
+export default function Map({setMap, lat, lng, zoom}:MapProps) {
   const loadKakaoMap = () => {
     // 카카오 맵 불러오기, 초기 좌표 설정
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
-        center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
-        level: 3,
+        center: new window.kakao.maps.LatLng(lat ?? DEFAULT_LAT, lng ?? DEFAULT_LNG),
+        level: zoom ?? DEFAULT_ZOOM,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       setMap(map);
