@@ -1,19 +1,28 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { DISTRICT_ARR } from "@/data/store";
+import { Dispatch, SetStateAction } from 'react';
 
-export default function SearchFilter() {
+interface searchFilterProps {
+    setQuery: Dispatch<SetStateAction<string | null>>;
+    setDistrict: Dispatch<SetStateAction<string | null>>;
+}
+
+export default function SearchFilter({setQuery, setDistrict}: searchFilterProps) {
     return (
         <div className="flex flex-col md:flex-row gap-2 my-4">
             <div className="flex items-center justify-center w-full gap-2">
                 <AiOutlineSearch className="w-6 h-6" />
                 <input
                     type="search"
+                    onChange={(e)=>setQuery(e.target.value)}
                     placeholder="음식점 검색"
                     className="block w-full p-3 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-500 outline-none focus:border-2"
                 ></input>
             </div>
-            <select className="p-3 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 md:max-w-[200px] focus:border-blue-500 w-full outline-none">
-                <option>지역 선택</option>
+            <select
+                onChange={(e)=>setDistrict(e.target.value)}
+                className="p-3 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 md:max-w-[200px] focus:border-blue-500 w-full outline-none">
+                <option value=''>지역 선택</option>
                 {DISTRICT_ARR.map((data) => (
                     <option value={data} key={data}>
                         {data}
