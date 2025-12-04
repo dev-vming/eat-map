@@ -1,12 +1,14 @@
+import { mapState } from "@/atom";
 import { StoreType } from "@/interface";
 import { useCallback, useEffect } from "react";
+import { useRecoilValue } from "recoil";
 
 interface MakerProps {
-    map: any;
     store: StoreType;
 }
 
-export default function Marker({ map, store }: MakerProps) {
+export default function Marker({ store }: MakerProps) {
+    const map = useRecoilValue(mapState);
     const loadKakaoMarker = useCallback(() => {
         if (map && store) {
             // store data 좌표 값으로 마커 좌표 설정
