@@ -19,6 +19,11 @@ export interface StoreApiResponse {
 
 export interface LocationType {
     lat: number;
-  lng: number;
-  zoom: number;
+    lng: number;
+    zoom: number;
+}
+
+export interface SearchType {
+  query?: string;
+  district?: string;
 }
