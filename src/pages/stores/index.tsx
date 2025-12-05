@@ -10,9 +10,11 @@ import Loader from "@/components/Loader";
 import SearchFilter from "@/components/SearchFilter";
 import { useRecoilValue } from "recoil";
 import { searchState } from "@/atom";
+import { useRouter } from "next/router";
 
 export default function StoreListPage() {
-  const search = useRecoilValue(searchState);
+    const router = useRouter();
+    const search = useRecoilValue(searchState);
 
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
@@ -73,7 +75,7 @@ export default function StoreListPage() {
 
     return (
         <div className="px-4 md:max-w-4xl mx-auto py-8">
-        <SearchFilter />
+            <SearchFilter />
             <ul role="list" className="divide-y divide-gray-100">
                 {isLoading ? (
                     <Loading />
@@ -83,7 +85,10 @@ export default function StoreListPage() {
                             {page.data.map(
                                 (store: StoreType, index: number) => (
                                     <li
-                                        className="flex justify-between gap-x-6 py-5"
+                                        onClick={() =>
+                                            router.push(`/stores/${store.id}`)
+                                        }
+                                        className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50"
                                         key={index}
                                     >
                                         <div className="flex gap-x-4">
@@ -113,7 +118,9 @@ export default function StoreListPage() {
                                             <div className="mt-1 text-xs truncate font-semibold leading-5 text-gray-500">
                                                 {store.phone || "번호없음"} |{" "}
                                                 {store.foodCertifyName} |{" "}
-                                                {store.category==='default' ? '카테고리없음' : store.category }
+                                                {store.category === "default"
+                                                    ? "카테고리없음"
+                                                    : store.category}
                                             </div>
                                         </div>
                                     </li>
