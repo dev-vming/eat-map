@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { StoreApiResponse, StoreType } from "@/interface";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/db";
 
 interface ResponsType {
     page?: string;
@@ -19,7 +19,6 @@ export default async function handler(
         query = "",
         district = "",
     }: ResponsType = req.query;
-    const prisma = new PrismaClient();
 
     if (page) {
         const count = await prisma.store.count();
