@@ -1,8 +1,8 @@
 import { LocationType, SearchType, StoreType } from "@/interface";
 import { atom } from "recoil";
 
-const DEFAULT_LAT = 37.496486063;
-const DEFAULT_LNG = 127.028361548;
+const DEFAULT_LAT = '37.496486063';
+const DEFAULT_LNG = '127.028361548';
 const DEFAULT_ZOOM = 3;
 
 export const mapState = atom({
