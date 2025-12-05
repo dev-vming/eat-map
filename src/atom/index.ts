@@ -1,4 +1,4 @@
-import { LocationType, StoreType } from "@/interface";
+import { LocationType, SearchType, StoreType } from "@/interface";
 import { atom } from "recoil";
 
 const DEFAULT_LAT = 37.496486063;
@@ -24,3 +24,8 @@ export const locationState = atom<LocationType>({
         zoom: DEFAULT_ZOOM,
     },
 });
+
+export const searchState = atom<SearchType | null>({
+    key: "search",
+    default: null,
+})
