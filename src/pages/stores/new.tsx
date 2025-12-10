@@ -1,7 +1,11 @@
 import { CATEGORY_ARR, FOOD_CERTIFY_ARR, STORE_TYPE_ARR } from "@/data/store";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 export default function StoreNewPage() {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -12,9 +16,18 @@ export default function StoreNewPage() {
             className="px-4 md:max-w-4xl mx-auto py-8"
             onSubmit={handleSubmit(async (data) => {
                 try {
-                    console.log(data);
+                    const result = await axios.post("/api/stores", data);
+
+                    if (result.status === 200) {
+                        toast.success("맛집을 등록했습니다.");
+                      router.replace(`/stores/${result.data.id}`);
+                    } else {
+                        toast.error("다시 시도해주세요.");
+                    }
                 } catch (e) {
-                    console.error(e);
+                    toast.error(
+                        "데이터 생성 중 문제가 생겼습니다. 다시 시도해주세요."
+                    );
                 }
             })}
         >
@@ -120,14 +133,14 @@ export default function StoreNewPage() {
 
                         <div className="sm:col-span-2 sm:col-start-1">
                             <label
-                                htmlFor="certify"
+                                htmlFor="foodCertifyName"
                                 className="block text-sm/6 font-medium text-gray-900"
                             >
                                 식품인증구분
                             </label>
                             <div className="mt-2">
                                 <select
-                                    {...register("certify", {
+                                    {...register("foodCertifyName", {
                                         required: true,
                                     })}
                                     className="block w-full rounded-md border-0 outline-none px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -149,14 +162,14 @@ export default function StoreNewPage() {
 
                         <div className="sm:col-span-2">
                             <label
-                                htmlFor="type"
+                                htmlFor="storeType"
                                 className="block text-sm/6 font-medium text-gray-900"
                             >
                                 업종구분
                             </label>
                             <div className="mt-2">
                                 <select
-                                    {...register("type", {
+                                    {...register("storeType", {
                                         required: true,
                                     })}
                                     className="block w-full rounded-md border-0 outline-none px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
