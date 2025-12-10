@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { SessionProvider } from "next-auth/react";
 import { RecoilRoot } from "recoil";
 
+import { ToastContainer } from "react-toastify";
+
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -16,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <SessionProvider session={session}>
                     <Layout>
                         <Component {...pageProps} />
+                        <ToastContainer />
                     </Layout>
                     <ReactQueryDevtools />
                 </SessionProvider>
