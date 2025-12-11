@@ -24,6 +24,6 @@ export interface LocationType {
 }
 
 export interface SearchType {
-  query?: string;
-  district?: string;
+    query?: string;
+    district?: string;
 }
