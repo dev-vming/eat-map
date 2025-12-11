@@ -22,14 +22,13 @@ export default async function handler(
 
     if (req.method === "POST") {
         // 데이터 생성을 처리
-      const data = req.body;
+        const data = req.body;
 
         const result = await prisma.store.create({
             data: { ...data },
         });
-      
-      return res.status(200).json(result);
 
+        return res.status(200).json(result);
     } else {
         // get 요청 처리
         if (page) {

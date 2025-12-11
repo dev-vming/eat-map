@@ -3,14 +3,17 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import AddressSearch from "@/components/AddressSearch";
+import { StoreType } from "@/interface";
 
 export default function StoreNewPage() {
     const router = useRouter();
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
-    } = useForm();
+    } = useForm<StoreType>();
     return (
         <form
             className="px-4 md:max-w-4xl mx-auto py-8"
@@ -20,7 +23,7 @@ export default function StoreNewPage() {
 
                     if (result.status === 200) {
                         toast.success("맛집을 등록했습니다.");
-                      router.replace(`/stores/${result.data.id}`);
+                        router.replace(`/stores/${result.data.id}`);
                     } else {
                         toast.error("다시 시도해주세요.");
                     }
@@ -111,25 +114,11 @@ export default function StoreNewPage() {
                             </div>
                         </div>
 
-                        <div className="col-span-full">
-                            <label
-                                htmlFor="address"
-                                className="block text-sm/6 font-medium text-gray-900"
-                            >
-                                주소 (다음 주소 검색 API 연동 예정)
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    {...register("address", { required: true })}
-                                    className="block w-full rounded-md border-0 outline-none px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                                {errors.address?.type === "required" && (
-                                    <div className="pt-2 text-xs text-red-600">
-                                        필수 입력 사항입니다.
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        <AddressSearch
+                            register={register}
+                            errors={errors}
+                            setValue={setValue}
+                        />
 
                         <div className="sm:col-span-2 sm:col-start-1">
                             <label
@@ -152,7 +141,7 @@ export default function StoreNewPage() {
                                         </option>
                                     ))}
                                 </select>
-                                {errors.certify?.type === "required" && (
+                                {errors.foodCertifyName?.type === "required" && (
                                     <div className="pt-2 text-xs text-red-600">
                                         필수 선택 사항입니다.
                                     </div>
@@ -181,7 +170,7 @@ export default function StoreNewPage() {
                                         </option>
                                     ))}
                                 </select>
-                                {errors.type?.type === "required" && (
+                                {errors.storeType?.type === "required" && (
                                     <div className="pt-2 text-xs text-red-600">
                                         필수 선택 사항입니다.
                                     </div>
