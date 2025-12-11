@@ -141,7 +141,8 @@ export default function StoreNewPage() {
                                         </option>
                                     ))}
                                 </select>
-                                {errors.foodCertifyName?.type === "required" && (
+                                {errors.foodCertifyName?.type ===
+                                    "required" && (
                                     <div className="pt-2 text-xs text-red-600">
                                         필수 선택 사항입니다.
                                     </div>
@@ -185,6 +186,7 @@ export default function StoreNewPage() {
                 <button
                     type="button"
                     className="text-sm/6 font-semibold text-gray-900"
+                    onClick={() => router.back()}
                 >
                     뒤로가기
                 </button>
