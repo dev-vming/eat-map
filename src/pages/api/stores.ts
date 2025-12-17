@@ -8,17 +8,19 @@ interface ResponsType {
     limit?: string;
     query?: string;
     district?: string;
+    id?: string;
 }
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<StoreApiResponse | StoreType[] | StoreType>
+    res: NextApiResponse<StoreApiResponse | StoreType[] | StoreType | null>
 ) {
     const {
         page = "",
         limit = "",
         query = "",
         district = "",
+        id = "",
     }: ResponsType = req.query;
 
     if (req.method === "POST") {
@@ -78,6 +80,19 @@ export default async function handler(
         });
 
         return res.status(200).json(result);
+    } else if (req.method === "DELETE") {
+        // 데이터 삭제를 처리
+        if (id) {
+            // 사용자가 선택한 id의 데이터를 삭제
+            const result = await prisma.store.delete({
+                where: {
+                    id: parseInt(id),
+                },
+            });
+
+            return res.status(200).json(result);
+        }
+        return res.status(500).json(null);
     } else {
         // get 요청 처리
         if (page) {
