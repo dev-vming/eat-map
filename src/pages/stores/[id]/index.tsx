@@ -52,7 +52,7 @@ export default function StoreDetailPage() {
                             {store?.address}
                         </p>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 px-4 py-3">
                         <Link
                             className="underline hover:text-gray-400 text-sm"
                             href={`/stores/${store?.id}/edit`}
