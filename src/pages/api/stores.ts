@@ -40,7 +40,41 @@ export default async function handler(
 
         // 사용자 입력값 + 카카오 좌표 값 저장
         const result = await prisma.store.create({
-            data: { ...formData, lat: data.documents[0].y, lng: data.documents[0].x },
+            data: {
+                ...formData,
+                lat: data.documents[0].y,
+                lng: data.documents[0].x,
+            },
+        });
+
+        return res.status(200).json(result);
+    } else if (req.method === "PUT") {
+        // 데이터 수정을 처리
+        const formData = req.body;
+
+        // 카카오 좌표 요청을 위한 헤더
+        const headers = {
+            Authorization: `KakaoAK ${process.env.KAKAO_CLIENT_ID}`,
+        };
+
+        // 카카오 좌표 검색
+        const { data } = await axios.get(
+            `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURI(
+                formData.address
+            )}`,
+            { headers }
+        );
+
+        // 사용자 입력값 + 카카오 좌표 값 수정
+        const result = await prisma.store.update({
+            where: {
+                id: formData.id,
+            },
+            data: {
+                ...formData,
+                lat: data.documents[0].y,
+                lng: data.documents[0].x,
+            },
         });
 
         return res.status(200).json(result);
