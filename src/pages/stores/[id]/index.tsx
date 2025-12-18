@@ -8,6 +8,7 @@ import Marker from "@/components/Marker";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import Like from "@/components/Like";
 
 export default function StoreDetailPage() {
     const router = useRouter();
@@ -72,11 +73,12 @@ export default function StoreDetailPage() {
                             {store?.address}
                         </p>
                     </div>
-                    {status === "authenticated" && (
+                    {status === "authenticated" && store && (
                         <div className="flex items-center gap-4 px-4 py-3">
+                            <Like storeId={store.id} />
                             <Link
                                 className="underline hover:text-gray-400 text-sm"
-                                href={`/stores/${store?.id}/edit`}
+                                href={`/stores/${store.id}/edit`}
                             >
                                 수정
                             </Link>
