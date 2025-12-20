@@ -8,14 +8,22 @@ export interface StoreType {
     category?: string | null;
     storeType?: string | null;
     foodCertifyName?: string | null;
-    likes?: Like[];
+    likes?: LikeInterface[];
 }
 
-export interface Like {
+export interface LikeInterface {
     id: number;
     storeId: number;
     userId: number;
 }
+
+export interface LikeApiResponse {
+    data: LikeInterface[];
+    totalPage?: number;
+    totalCount?: number;
+    page?: number;
+}
+
 
 export interface StoreApiResponse {
     data: StoreType[];
