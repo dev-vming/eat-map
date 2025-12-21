@@ -44,7 +44,7 @@
   }
 
   .navbar__list--item--mobile {
-    @apply cursor-pointer;
+    @apply cursor-pointer text-left;
   }
 
   .navbar__list--item--mobile:hover {
