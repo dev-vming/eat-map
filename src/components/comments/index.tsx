@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { CommentApiResponse } from "@/interface";
 import { useQuery } from "react-query";
+import Pagination from "../Pagination";
 
 interface CommentProps {
     storeId: number;
@@ -13,24 +14,37 @@ interface CommentProps {
 export default function Comments({ storeId }: CommentProps) {
     const { status } = useSession();
 
-        const router = useRouter();
-        const { page = "1" } = router.query;
-    
-        const fetchComments = async () => {
-            const { data } = await axios.get(
-                `/api/comments?storeId=${storeId}&page=${page}&limit=10`
-            );
-            return data as CommentApiResponse;
-        };
-    
-    const { data: comments, refetch } = useQuery(`comments-${storeId}`, fetchComments);
+    const router = useRouter();
+    const { page = "1" }: any = router.query;
+
+    const fetchComments = async () => {
+        const { data } = await axios.get(
+            `/api/comments?storeId=${storeId}&page=${page}&limit=5`
+        );
+        return data as CommentApiResponse;
+    };
+
+    const { data: comments, refetch } = useQuery(
+        `comments-${storeId}-${page}`,
+        fetchComments
+    );
 
     return (
         <div className="px-2 md:max-w-4xl mx-auto py-8 mb-20">
             {/* 댓글 작성 폼 */}
-            {status === "authenticated" && <CommentForm storeId={storeId} refetch={refetch}/>}
+            {status === "authenticated" && (
+                <CommentForm storeId={storeId} refetch={refetch} />
+            )}
             {/* 댓글 리스트 */}
             <CommentList comments={comments} />
+            {/* 페이지네이션 */}
+            {comments?.totalPage && (
+                <Pagination
+                    total={comments?.totalPage}
+                    page={page}
+                    pathname={`/stores/${storeId}`}
+                />
+            )}
         </div>
     );
 }

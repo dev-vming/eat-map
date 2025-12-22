@@ -38,7 +38,7 @@ export default function MyPage() {
                             <img
                                 width={48}
                                 height={48}
-                                className="rounded-full"
+                                className="rounded-full w-10 h-10"
                                 alt="프로필 이미지"
                                 src={
                                     session?.user.image ??
