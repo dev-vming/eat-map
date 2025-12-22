@@ -44,7 +44,7 @@ export default function CommentList({ comments }: CommentListProps) {
                                 }
                                 width={40}
                                 height={40}
-                                className="rounded-full bg-gray-10"
+                                className="rounded-full bg-gray-10 h-10 w-10"
                                 alt="프로필 이미지"
                             />
                         </div>
