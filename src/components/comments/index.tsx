@@ -23,12 +23,12 @@ export default function Comments({ storeId }: CommentProps) {
             return data as CommentApiResponse;
         };
     
-    const { data: comments } = useQuery(`comments-${storeId}`, fetchComments);
+    const { data: comments, refetch } = useQuery(`comments-${storeId}`, fetchComments);
 
     return (
         <div className="px-2 md:max-w-4xl mx-auto py-8 mb-20">
             {/* 댓글 작성 폼 */}
-            {status === "authenticated" && <CommentForm storeId={storeId} />}
+            {status === "authenticated" && <CommentForm storeId={storeId} refetch={refetch}/>}
             {/* 댓글 리스트 */}
             <CommentList comments={comments} />
         </div>
