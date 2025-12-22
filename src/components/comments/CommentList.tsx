@@ -1,27 +1,12 @@
-import { CommentApiResponse } from "@/interface";
-import axios from "axios";
+import { CommentApiResponse, CommentInterface } from "@/interface";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
 interface CommentListProps {
-    storeId: number;
+    comments?: CommentApiResponse;
 }
 
-export default function CommentList({ storeId }: CommentListProps) {
+export default function CommentList({ comments }: CommentListProps) {
     const { data: session } = useSession();
-
-    const router = useRouter();
-    const { page = "1" } = router.query;
-
-    const fetchComments = async () => {
-        const { data } = await axios.get(
-            `/api/comments?storeId=${storeId}&page=${page}&limit=10`
-        );
-        return data as CommentApiResponse;
-    };
-
-    const { data: comments } = useQuery(`comments-${storeId}`, fetchComments);
 
     return (
         <div className="my-10">
