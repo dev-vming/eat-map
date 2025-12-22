@@ -38,13 +38,11 @@ export default function Comments({ storeId }: CommentProps) {
             {/* 댓글 리스트 */}
             <CommentList comments={comments} />
             {/* 페이지네이션 */}
-            {comments?.totalPage && (
-                <Pagination
-                    total={comments?.totalPage}
-                    page={page}
-                    pathname={`/stores/${storeId}`}
-                />
-            )}
+            <Pagination
+                total={comments?.totalPage}
+                page={page}
+                pathname={`/stores/${storeId}`}
+            />
         </div>
     );
 }

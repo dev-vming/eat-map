@@ -16,7 +16,11 @@ export default function LikesPage() {
         return data as LikeApiResponse;
     };
 
-    const { data: likes, isError, isLoading } = useQuery(`likes-${page}`, fetchLikes);
+    const {
+        data: likes,
+        isError,
+        isLoading,
+    } = useQuery(`likes-${page}`, fetchLikes);
 
     if (isError) {
         return (
@@ -45,9 +49,12 @@ export default function LikesPage() {
                     ))
                 )}
             </ul>
-            {likes?.totalPage && likes?.totalPage > 0 && (
-                <Pagination total={likes?.totalPage} page={page} pathname='/users/likes' />
-            )}
+
+            <Pagination
+                total={likes?.totalPage}
+                page={page}
+                pathname="/users/likes"
+            />
         </div>
     );
 }
