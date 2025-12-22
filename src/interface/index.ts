@@ -11,6 +11,13 @@ export interface StoreType {
     likes?: LikeInterface[];
 }
 
+interface UserType {
+    id: number;
+    email: string;
+    name?: string | null;
+    image?: string | null;
+}
+
 export interface LikeInterface {
     id: number;
     storeId: number;
@@ -30,6 +37,8 @@ export interface CommentInterface {
     userId: number;
     store?: StoreType;
     body: string;
+    user?: UserType;
+    createdAt: Date;
 }
 
 export interface CommentApiResponse {
