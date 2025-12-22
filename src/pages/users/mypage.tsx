@@ -1,7 +1,27 @@
+import CommentList from "@/components/comments/CommentList";
+import Pagination from "@/components/Pagination";
+import { CommentApiResponse } from "@/interface";
+import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 export default function MyPage() {
     const { data: session } = useSession();
+    const router = useRouter();
+    const { page = "1" }: any = router.query;
+
+    const fetchComments = async () => {
+        const { data } = await axios.get(
+            `/api/comments?&page=${page}&limit=5&user=true`
+        );
+        return data as CommentApiResponse;
+    };
+
+    const { data: comments } = useQuery(
+        `comments-${session?.user.id}-${page}`,
+        fetchComments
+    );
     return (
         <div className="px-4 md:max-w-4xl mx-auto py-8">
             <div className="px-4 sm:px-0">
@@ -63,6 +83,22 @@ export default function MyPage() {
                     </div>
                 </dl>
             </div>
+            <div className="mt-8 px-4 sm:px-0">
+                <h3 className="text-base font-semibold leading-7 text-gray-900">
+                    내가 쓴 댓글
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                    댓글 리스트
+                </p>
+            </div>
+            <CommentList comments={comments} />
+            {comments?.totalPage && (
+                <Pagination
+                    total={comments?.totalPage}
+                    page={page}
+                    pathname="/users/mypage"
+                />
+            )}
         </div>
     );
 }
