@@ -1,5 +1,7 @@
 import { CommentApiResponse, CommentInterface } from "@/interface";
+import axios from "axios";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 interface CommentListProps {
     comments?: CommentApiResponse;
@@ -7,6 +9,24 @@ interface CommentListProps {
 
 export default function CommentList({ comments }: CommentListProps) {
     const { data: session } = useSession();
+
+    const handleDeleteComment = async (id: string) => {
+        const confirm = window.confirm("해당 댓글을 삭제하시겠습니까?");
+
+        if (confirm) {
+            try {
+                const result = await axios.delete(`/api/comments?id=${id}`);
+
+                if (result.status === 200) {
+                    toast.success("댓글을 삭제했습니다.");
+                } else {
+                    toast.error("다시 시도해주세요.");
+                }
+            } catch (e) {
+                toast.error("다시 시도해주세요.");
+            }
+        }
+    };
 
     return (
         <div className="my-10">
@@ -51,6 +71,11 @@ export default function CommentList({ comments }: CommentListProps) {
                                     <button
                                         type="button"
                                         className="underline text-gray-500 hover:text-gray-400"
+                                        onClick={() =>
+                                            handleDeleteComment(
+                                                String(comment.id)
+                                            )
+                                        }
                                     >
                                         삭제
                                     </button>
