@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MdOutlineMyLocation } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
+import FullPageLoader from "./FullPageLoader";
 
 export default function CurrentLocationButton() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -47,12 +48,15 @@ export default function CurrentLocationButton() {
     };
 
     return (
-        <button
-            type="button"
-            onClick={handleCurrentPosition}
-            className="fixed z-10 p-2 shadow right-10 bottom-10 bg-white rounded-md hover:shadow-lg focus:shadow-lg hover:bg-blue-100"
-        >
-            <MdOutlineMyLocation className="w-5 h-5" />
-        </button>
+        <>
+            {loading && <FullPageLoader />}
+            <button
+                type="button"
+                onClick={handleCurrentPosition}
+                className="fixed z-10 p-2 shadow right-10 bottom-10 bg-white rounded-md hover:shadow-lg focus:shadow-lg hover:bg-blue-100"
+            >
+                <MdOutlineMyLocation className="w-5 h-5" />
+            </button>
+        </>
     );
 }
