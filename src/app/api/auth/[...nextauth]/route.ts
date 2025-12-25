@@ -1,8 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/db";
-
 import NextAuth, { NextAuthOptions } from "next-auth";
-
 import GoogleProvider from "next-auth/providers/google";
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
@@ -59,4 +57,5 @@ export const authOptions: NextAuthOptions = {
     },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
