@@ -25,6 +25,7 @@ export default function StoreNewPage() {
 
                     if (result.status === 200) {
                         toast.success("맛집을 등록했습니다.");
+                        router.refresh();
                         router.replace(`/stores/${result.data.id}`);
                     } else {
                         toast.error("다시 시도해주세요.");
