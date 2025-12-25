@@ -9,10 +9,14 @@ import AddressSearch from "@/components/AddressSearch";
 import { StoreType } from "@/interface";
 import { useQuery } from "react-query";
 import Loader from "@/components/Loader";
+import { useSetRecoilState } from "recoil";
+import { currentStoreState } from "@/atom";
 
 export default function StoreEditPage({ params }: { params: { id: string } }) {
     const router = useRouter();
     const id = params.id;
+
+    const setCurrentStore = useSetRecoilState(currentStoreState);
 
     const fetchStore = async () => {
         const { data } = await axios(`/api/stores?id=${id}`);
@@ -29,7 +33,6 @@ export default function StoreEditPage({ params }: { params: { id: string } }) {
     const {
         data: store,
         isFetching,
-        isSuccess,
         isError,
     } = useQuery(`store-${id}`, fetchStore, {
         onSuccess: (data) => {
@@ -67,6 +70,8 @@ export default function StoreEditPage({ params }: { params: { id: string } }) {
 
                     if (result.status === 200) {
                         toast.success("맛집을 수정했습니다.");
+                        setCurrentStore(result.data);
+                        router.refresh();
                         router.replace(`/stores/${result.data.id}`);
                     } else {
                         toast.error("다시 시도해주세요.");
