@@ -1,4 +1,6 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+"use client";
+
+import React, { useRef, useEffect, useCallback } from "react";
 import Loading from "@/components/Loading";
 import { StoreType } from "@/interface";
 import axios from "axios";
@@ -8,11 +10,9 @@ import Loader from "@/components/Loader";
 import SearchFilter from "@/components/SearchFilter";
 import { useRecoilValue } from "recoil";
 import { searchState } from "@/atom";
-import { useRouter } from "next/router";
 import StoreList from "@/components/StoreList";
 
 export default function StoreListPage() {
-    const router = useRouter();
     const search = useRecoilValue(searchState);
 
     const ref = useRef<HTMLDivElement | null>(null);
