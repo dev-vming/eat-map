@@ -12,12 +12,15 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import Like from "@/components/Like";
 import Comments from "@/components/comments";
+import { useSetRecoilState } from "recoil";
+import { currentStoreState } from "@/atom";
 
 export default function StoreDetailPage({
     params,
 }: {
     params: { id: string };
 }) {
+    const setCurrentStore = useSetRecoilState(currentStoreState);
     const router = useRouter();
     const id = params.id;
     const { status } = useSession();
@@ -46,6 +49,8 @@ export default function StoreDetailPage({
 
                 if (result.status === 200) {
                     toast.success("가게를 삭제했습니다.");
+                    setCurrentStore(null);
+                    router.refresh();
                     router.replace("/");
                 } else {
                     toast.error("다시 시도해주세요.");
