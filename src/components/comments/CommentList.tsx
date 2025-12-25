@@ -1,4 +1,4 @@
-import { CommentApiResponse, CommentInterface } from "@/interface";
+import { CommentApiResponse } from "@/interface";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
