@@ -7,9 +7,9 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 
-export default function MyPage({ params }: { params: { page: string } }) {
+export default function MyPage({ searchParams }: { searchParams: { page: string } }) {
     const { data: session } = useSession();
-    const page = params.page || "1";
+    const page = searchParams.page || "1";
 
     const fetchComments = async () => {
         const { data } = await axios.get(
@@ -25,9 +25,7 @@ export default function MyPage({ params }: { params: { page: string } }) {
     return (
         <div className="px-4 md:max-w-4xl mx-auto py-8">
             <div className="px-4 sm:px-0">
-                <h2 className="text-lg font-semibold">
-                    마이페이지
-                </h2>
+                <h2 className="text-lg font-semibold">마이페이지</h2>
                 <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                     사용자 기본정보
                 </p>

@@ -15,12 +15,14 @@ import Comments from "@/components/comments";
 import { useSetRecoilState } from "recoil";
 import { currentStoreState } from "@/atom";
 
-export default function StoreDetailPage({
-    params,
-}: {
+interface ParamsProps {
     params: { id: string };
-}) {
+    searchParams: { page: string };
+}
+
+export default function StoreDetailPage({ params, searchParams }: ParamsProps) {
     const setCurrentStore = useSetRecoilState(currentStoreState);
+    const page = searchParams.page || "1";
     const router = useRouter();
     const id = params.id;
     const { status } = useSession();
@@ -172,7 +174,7 @@ export default function StoreDetailPage({
                         <Map lat={store.lat} lng={store.lng} zoom={1} />
                         <Marker store={store} />
                     </div>
-                    <Comments storeId={store?.id} />
+                    <Comments storeId={store?.id} page={page} />
                 </>
             )}
         </>
