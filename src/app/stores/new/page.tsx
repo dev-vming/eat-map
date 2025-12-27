@@ -39,10 +39,10 @@ export default function StoreNewPage() {
         >
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base/7 font-semibold text-gray-900">
+                    <h2 className="text-lg font-semibold">
                         맛집 등록
                     </h2>
-                    <p className="mt-1 text-sm/6 text-gray-600">
+                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                         아래 내용을 입력해서 맛집을 등록해주세요.
                     </p>
 

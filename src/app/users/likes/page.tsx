@@ -33,8 +33,8 @@ export default function LikesPage({ params }: { params: { page: string } }) {
 
     return (
         <div className="px-4 md:max-w-4xl mx-auto py-8">
-            <h3 className="text-lg font-semibold">찜한 맛집</h3>
-            <div className="mt-1 text-gray-500 text-sm">
+            <h2 className="text-lg font-semibold">찜한 맛집</h2>
+            <div className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                 찜한 가게 리스트입니다.
             </div>
             <ul role="list" className="divide-y divide-gray-100 mt-10">
