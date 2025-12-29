@@ -58,7 +58,7 @@ export default function StoreEditPage({ params }: { params: { id: string } }) {
     }
 
     if (isFetching) {
-        return <Loader className="mt-[40%]" />;
+        return <Loader className="mt-[25%]" />;
     }
 
     return (

@@ -72,7 +72,7 @@ export default function StoreDetailPage({ params, searchParams }: ParamsProps) {
     }
 
     if (isFetching) {
-        return <Loader className="mt-[40%]" />;
+        return <Loader className="mt-[25%]" />;
     }
 
     return (
